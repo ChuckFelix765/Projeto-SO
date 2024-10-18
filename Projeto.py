@@ -1,8 +1,11 @@
 f = open("Teste.txt","r")
+
+l = []
+
 for x in f:
-    print("Sem split: ",x)
-    esp = x.split()
-    print("Com Split: ",esp)
-    vir = x.split(",")
-    print("com split: ",vir)
+    res = [i for parte in x.split(',') for i in parte.split()]
+    l.append(res)
+
+print(l)
+
 f.close()
