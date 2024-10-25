@@ -1,6 +1,11 @@
+from asyncio.windows_events import NULL
+from queue import Empty
+
+
 f = open("Teste.txt","r")
 
 l = []
+
 
 
 for x in f:
