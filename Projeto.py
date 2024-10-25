@@ -1,26 +1,43 @@
 f = open("Teste.txt","r")
 
 l = []
-dit = []
+
 
 for x in f:
     res = [i for parte in x.split(',') for i in parte.split()]
+    
     l.append(res)
 
 print(l)
 
-for i in range(len(l)):
-    dic = {
-        l[i][0] : i+1
-    }
-    dit.append(dic)
-
-
-print(dit[0])
-
-for i in range(len(l)):
-    for j in range(len(l[i])):
-        print(" ",l[i][j],end="")
-    print()
 
 f.close()
+
+fila = []
+
+'''
+Lembrando:
+index 0 -> P_ID
+index 1 -> Tempo de chegada
+index 2 -> Duração
+index 3+ -> I/O
+'''
+
+
+
+
+
+# transforma todos os valores de String -> Int 
+# para poder subtrair quando implementar o resto
+# também coloca o processo que chega no instante 0 na fila
+for i in range(len(l)):
+    for j in range(1, len(l[i])):
+        l[i][j] = int(l[i][j])
+    if l[i][1] == 0:
+        fila.append(l[i])
+    
+
+contador = 0
+#nada implementado ainda
+while len(fila) > 0:
+    exit
