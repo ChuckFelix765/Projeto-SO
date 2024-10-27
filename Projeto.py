@@ -3,14 +3,9 @@ from queue import Empty
 
 
 f = open("Teste.txt","r")
-
 l = []
-
-
-
 for x in f:
     res = [i for parte in x.split(',') for i in parte.split()]
-    
     l.append(res)
 
 print(l)
@@ -28,10 +23,6 @@ index 2 -> Duração
 index 3+ -> I/O
 '''
 
-
-
-
-
 # transforma todos os valores de String -> Int 
 # para poder subtrair quando implementar o resto
 # também coloca o processo que chega no instante 0 na fila
@@ -44,5 +35,24 @@ for i in range(len(l)):
 
 contador = 0
 #nada implementado ainda
+print("=================================================")
+print("========INICIANDO ESCALONADOR ROUND ROBIN========")
+print("=================================================")
+
 while len(fila) > 0:
+    print("++++++++++++++++++++TEMPO %d+++++++++++++++++++++", contador)
+    for i in fila: 
+        print(i[0])
+    
+    print()
+
+
+    contador+=1
     exit
+
+def mostra_fila(fila):
+    if len(fila) < 1:
+        return "Nao ha processos na fila"
+    return ("%s",fila)
+        
+
