@@ -61,7 +61,7 @@ def evento(contador, quantum):
 
 insere_fila(0)
 processando = fila.get()
-
+q = int(input("Defina o tamanho do quantum: "))
 
 while True:#len(l)>0 or not fila.empty():
     print("\n++++++++++++++++++++TEMPO %d+++++++++++++++++++++\n" %contador)
@@ -86,19 +86,19 @@ while True:#len(l)>0 or not fila.empty():
             processando.pop(3)
             fila.put(list(processando))
             processando.clear()
-            quantum = 4
+            quantum = q
             
 
     if quantum == 0:
         print("#[evento] FIM QUANTUM <%s>" %processando[0])
-        quantum = 4
+        quantum = q
         if processando[2]>0:
                 fila.put(list(processando))
                 processando.clear()
 
 
     if processando and processando[2] == 0:
-        quantum = 4
+        quantum = q
         print("#[evento] ENCERRANDO <%s>" %processando[0])
         processando.clear()
 
