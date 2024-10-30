@@ -27,6 +27,7 @@ index 3+ -> I/O
 
 
 fila = Queue(maxsize = len(l))
+filapid = [] #------------------
 
 def insere_fila(contador):
     ind = 0
@@ -48,33 +49,14 @@ print("=================================================")
 print("========INICIANDO ESCALONADOR ROUND ROBIN========")
 print("=================================================")
 
-def evento(contador, quantum):
-    #chegada
-    ind = 0
-    for i in range(len(l)):
-        for j in range(1, len(l[i])):
-            l[i][j] = int(l[i][j])
-        if l[i][1] == contador:
-            fila.put(list(l[i]))
-            ind = i
-        l.pop(ind) 
 
 insere_fila(0)
 processando = fila.get()
 q = int(input("Defina o tamanho do quantum: "))
 quantum = q
+
 while True:#len(l)>0 or not fila.empty():
     print("\n++++++++++++++++++++TEMPO %d+++++++++++++++++++++\n" %contador)
-    #Verifica se tem chegada
-    if contador > 0:
-        chegada = insere_fila(contador)
-        if chegada != 0:
-            # o 0 serve so pra poder fazer comparacao
-            #se tem chegada, entao faz print
-            
-            print("#[evento] CHEGADA <%s>" %chegada[0])
-            chegada = 0
-
 
     #verifica se possui IO
     if len(processando) > 3:
@@ -87,6 +69,15 @@ while True:#len(l)>0 or not fila.empty():
             fila.put(list(processando))
             processando.clear()
             quantum = q
+    #Verifica se tem chegada
+    if contador > 0:
+        chegada = insere_fila(contador)
+        if chegada != 0:
+            # o 0 serve so pra poder fazer comparacao
+            #se tem chegada, entao faz print
+            
+            print("#[evento] CHEGADA <%s>" %chegada[0])
+            chegada = 0
             
 
     if quantum == 0:
@@ -111,6 +102,7 @@ while True:#len(l)>0 or not fila.empty():
 
     if not processando and not fila.empty():   
             processando = fila.get()
+    filapid.append(processando[0])
 
     if fila.empty():
         print("Nao ha processos na fila")
@@ -137,7 +129,4 @@ while True:#len(l)>0 or not fila.empty():
 
    
 
-
-print("Acabou")
-
-
+print("Ordem de execução dos processos: ", filapid)
