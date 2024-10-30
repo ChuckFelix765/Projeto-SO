@@ -40,7 +40,7 @@ def insere_fila(contador):
             return l[i][0] and l.pop(ind)
     return 0
 
-quantum = 4
+
 processando = []
 contador = 0
 #nada implementado ainda
@@ -62,7 +62,7 @@ def evento(contador, quantum):
 insere_fila(0)
 processando = fila.get()
 q = int(input("Defina o tamanho do quantum: "))
-
+quantum = q
 while True:#len(l)>0 or not fila.empty():
     print("\n++++++++++++++++++++TEMPO %d+++++++++++++++++++++\n" %contador)
     #Verifica se tem chegada
