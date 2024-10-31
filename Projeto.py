@@ -1,5 +1,7 @@
+import pandas as pd
+import matplotlib.pyplot as plt
 from asyncio.windows_events import NULL
-from queue import Empty, Queue
+from queue import Queue
 
 f = open("Teste.txt","r")
 l = []
@@ -7,10 +9,18 @@ for x in f:
     res = [i for parte in x.split(',') for i in parte.split()]
     l.append(res)
 
+colunas = max(len(row) for row in l)
+for row in l:
+     while len(row) < colunas:
+          row.append(0)
+
+df = pd.DataFrame(l)
+df.columns = ['Nome', 'Entrada', 'Duracao'] + [f'I/O{i}' for i in range(colunas - 3)]
+df['Entrada'] = pd.to_numeric(df['Entrada'])
+df['Duracao'] = pd.to_numeric(df["Duracao"])
+
 print(l)
 
-
-f.close()
 
 '''
 Lembrando:
@@ -49,11 +59,16 @@ print("=================================================")
 print("========INICIANDO ESCALONADOR ROUND ROBIN========")
 print("=================================================")
 
-
 insere_fila(0)
 processando = fila.get()
 q = int(input("Defina o tamanho do quantum: "))
 quantum = q
+
+plt.ion()
+fig, ax = plt.subplots()
+ax.set_xlabel('Tempo')
+ax.set_ylabel('Processos')
+ax.set_title('Gráfico de Gantt')
 
 while True:#len(l)>0 or not fila.empty():
     print("\n++++++++++++++++++++TEMPO %d+++++++++++++++++++++\n" %contador)
@@ -102,6 +117,10 @@ while True:#len(l)>0 or not fila.empty():
 
     if not processando and not fila.empty():   
             processando = fila.get()
+            if processando:
+                 ax.barh(processando[0], processando[2], left=contador, color='skyblue')
+                 plt.draw()
+                 plt.pause(0.1)
     filapid.append(processando[0])
 
     if fila.empty():
@@ -127,6 +146,9 @@ while True:#len(l)>0 or not fila.empty():
     processando[2] -= 1
     contador+=1
 
-   
+
 
 print("Ordem de execução dos processos: ", filapid)
+
+plt.ioff()
+plt.show()
